@@ -2790,6 +2790,789 @@ ENDCLASS.
 
 ******************************************************************************************************************************************
 
+ZFI_037_CUST_REC_CLEARING_T2 Package
+
+Data Definitions 
+
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Accounting Item Details'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+define view entity ZI_Accountingitemdetails
+  //  with parameters
+  //    p_belnr : belnr_d,
+  //    p_gjahr : gjahr
+  as select from ZI_AcctgCustomersDetails as bsid
+  //    inner join   ZI_AcctgCustomersDetails as bsid on  bsid.belnr = ZI_AcctgCustomersDetails.rebzg
+  //                                                  and bsid.gjahr = ZI_AcctgCustomersDetails.rebzj
+{
+  // ZI_AcctgCustomersDetails.xblnr,
+  bsid.rebzj,
+  bsid.rebzg,
+
+  //  bsid.xblnr,
+  bsid.waers        as unit,
+  @Semantics.amount.currencyCode: 'unit'
+  ////////  sum( bsid.dmbtr ) as amount
+
+  sum( bsid.wrbtr ) as amount
+  // bsid.dmbtr as amount
+
+}
+//where
+//      bsid.belnr = $parameters.p_belnr
+//  and bsid.gjahr = $parameters.p_gjahr
+group by
+//  ZI_AcctgCustomersDetails.xblnr,
+//  bsid.xblnr,
+  bsid.rebzg,
+  bsid.rebzj,
+  bsid.waers
+*************************************************************************************************
+
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'View for BSID Details'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+define view entity ZI_AcctgCustomersDetails as select from bsid_view
+{
+    key bukrs,
+    key kunnr,
+    key umsks,
+    key umskz,
+    key augdt,
+    key augbl,
+    key zuonr,
+    key gjahr,
+    key belnr,
+    key buzei,
+    budat,
+    bldat,
+    cpudt,
+    waers,
+    xblnr,
+    blart,
+    monat,
+    bschl,
+    zumsk,
+    shkzg,
+    gsber,
+    tax_country,
+    mwskz,
+    txdat_from,
+   @Semantics.amount.currencyCode: 'waers'
+    dmbtr,
+     @Semantics.amount.currencyCode: 'waers'
+    wrbtr,
+     @Semantics.amount.currencyCode: 'RFCCUR'
+    fcsl,
+    rfccur,
+    @Semantics.amount.currencyCode: 'waers'
+    mwsts,
+     @Semantics.amount.currencyCode: 'waers'
+    wmwst,
+     @Semantics.amount.currencyCode: 'waers'
+    lwsts,
+     @Semantics.amount.currencyCode: 'waers'
+    bdiff,
+    @Semantics.amount.currencyCode: 'waers'
+    bdif2,
+    sgtxt,
+    projn,
+    aufnr,
+    anln1,
+    anln2,
+    saknr,
+    hkont,
+    fkont,
+    filkd,
+    zfbdt,
+    zterm,
+    zbd1t,
+    zbd2t,
+    zbd3t,
+    zbd1p,
+    zbd2p,
+     @Semantics.amount.currencyCode: 'waers'
+    skfbt,
+    @Semantics.amount.currencyCode: 'waers'
+    sknto,
+    @Semantics.amount.currencyCode: 'waers'
+    wskto,
+    zlsch,
+    zlspr,
+    zbfix,
+    hbkid,
+    bvtyp,
+    rebzg,
+    rebzj,
+    rebzz,
+    samnr,
+    anfbn,
+    anfbj,
+    anfbu,
+    anfae,
+    mansp,
+    mschl,
+    madat,
+    manst,
+    maber,
+    xnetb,
+    xanet,
+    xcpdd,
+    xinve,
+    xzahl,
+    mwsk1,
+    txdat_from1,
+    tax_country1,
+    @Semantics.amount.currencyCode: 'waers'
+    dmbt1,
+    @Semantics.amount.currencyCode: 'waers'
+    wrbt1,
+    hist_tax_factor1,
+    mwsk2,
+    txdat_from2,
+    tax_country2,
+    @Semantics.amount.currencyCode: 'waers'
+    dmbt2,
+    @Semantics.amount.currencyCode: 'waers'
+    wrbt2,
+    hist_tax_factor2,
+    mwsk3,
+    txdat_from3,
+    tax_country3,
+    @Semantics.amount.currencyCode: 'waers'
+    dmbt3,
+    @Semantics.amount.currencyCode: 'waers'
+    wrbt3, 
+    hist_tax_factor3,
+    hist_tax_factor,
+    bstat,
+    vbund,
+    vbeln,
+    rebzt,
+    infae,
+    stceg,
+    egbld,
+    eglld,
+    rstgr,
+    xnoza,
+    vertt,
+    vertn,
+    vbewa,
+    wverw,
+    projk,
+    fipos,
+    nplnr,
+    aufpl,
+    aplzl,
+    xegdr,
+    @Semantics.amount.currencyCode: 'waers'
+    dmbe2,
+    @Semantics.amount.currencyCode: 'waers'
+    dmbe3,
+    @Semantics.amount.currencyCode: 'waers'
+    dmb21,
+    @Semantics.amount.currencyCode: 'waers'
+    dmb22,
+    @Semantics.amount.currencyCode: 'waers'
+    dmb23,
+    @Semantics.amount.currencyCode: 'waers'
+    dmb31,
+    @Semantics.amount.currencyCode: 'waers'
+    dmb32,
+    @Semantics.amount.currencyCode: 'waers'
+    dmb33,
+    @Semantics.amount.currencyCode: 'waers'
+    bdif3,
+    xragl,
+    uzawe,
+    xstov,
+    @Semantics.amount.currencyCode: 'waers'
+    mwst2,
+    @Semantics.amount.currencyCode: 'waers'
+    mwst3,
+    @Semantics.amount.currencyCode: 'waers'
+    sknt2,
+    @Semantics.amount.currencyCode: 'waers'
+    sknt3,
+    xref1,
+    xref2,
+    xarch,
+    pswsl,
+    @Semantics.amount.currencyCode: 'PSWSL'
+    pswbt,
+    lzbkz,
+    landl,
+    imkey,
+    vbel2,
+    vpos2,
+    posn2,
+    eten2,
+    fistl,
+    geber,
+    dabrz,
+    xnegp,
+    kostl,
+    rfzei,
+    kkber,
+    empfb,
+    prctr,
+    xref3,
+    qsskz,
+    zinkz,
+    dtws1,
+    dtws2,
+    dtws3,
+    dtws4,
+    xpypr,
+    kidno,
+    @Semantics.amount.currencyCode: 'waers'
+    absbt,
+    ccbtc,
+    pycur,
+    @Semantics.amount.currencyCode: 'PYCUR'
+    pyamt,
+    bupla,
+    secco,
+    cession_kz,
+    @Semantics.amount.currencyCode: 'waers'
+    ppdiff,
+    @Semantics.amount.currencyCode: 'waers'
+    ppdif2,
+    @Semantics.amount.currencyCode: 'waers'
+    ppdif3,
+    kblnr,
+    kblpos,
+    grant_nbr,
+    gmvkz,
+    srtype,
+    lotkz,
+    fkber,
+    intreno,
+    pprct,
+    buzid,
+    auggj,
+    hktid,
+    budget_pd,
+    bdgt_account,
+    re_account,
+    pays_prov,
+    pays_tran,
+    mndid,
+    payt_rsn,
+    _dataaging,
+    kontt,
+    kontl,
+    uebgdat,
+    vname,
+    egrup,
+    btype,
+    propmano,
+    gkont,
+    gkart,
+    ghkon,
+    awtyp,
+    logsystem_sender,
+    bukrs_sender,
+    belnr_sender,
+    gjahr_sender,
+    buzei_sender,
+    pendays,
+    j_1tpbupl
+}
+
+******************************************************************************************************************************
+
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Value help for Bank Gl Account'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+@ObjectModel.representativeKey: 'GLAccount'
+@ObjectModel.supportedCapabilities: [#SQL_DATA_SOURCE,
+                                     #CDS_MODELING_DATA_SOURCE,
+                                     #CDS_MODELING_ASSOCIATION_TARGET,
+                                     #VALUE_HELP_PROVIDER,
+                                     #SEARCHABLE_ENTITY]
+@ObjectModel.modelingPattern:#NONE
+@Search.searchable: true
+@Consumption.ranked: true
+define view entity ZI_BankGLAccountVH
+  as select from I_GlAccountTextInCompanycode
+{
+        @ObjectModel.text.element: [ 'GLAccountName' ]
+        @Search.defaultSearchElement: true
+        @Search.fuzzinessThreshold: 0.8
+        @Search.ranking: #HIGH
+  key   GLAccount,
+        @Semantics.text: true
+        @Search.defaultSearchElement: true
+        @Search.fuzzinessThreshold: 0.8
+        @Search.ranking: #LOW
+        @EndUserText.quickInfo: 'GLAccount Name'
+
+        GLAccountName
+
+}
+where
+      Language        = $session.system_language
+  and CompanyCode     =       '1000'
+  and ChartOfAccounts =       'RSBO'
+  and GLAccount       between '0051110000' and '0051119999'
+*************************************************************************************************************
+
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Document Type Value Help'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+//@ObjectModel.resultSet.sizeCategory: #XS
+@ObjectModel.representativeKey: 'Documenttype'
+@ObjectModel.supportedCapabilities: [#SQL_DATA_SOURCE,
+                                     #CDS_MODELING_DATA_SOURCE,
+                                     #CDS_MODELING_ASSOCIATION_TARGET,
+                                     #VALUE_HELP_PROVIDER,
+                                     #SEARCHABLE_ENTITY]
+@ObjectModel.modelingPattern:#NONE
+@Search.searchable: true
+@Consumption.ranked: true
+define view entity ZI_DoctumentypeVH
+  as select from t003t
+{
+      @ObjectModel.text.element: [ 'DocumentDescription' ]
+      @Search.defaultSearchElement: true
+      @Search.fuzzinessThreshold: 0.8
+      @Search.ranking: #HIGH
+  key blart as Documenttype,
+      @Semantics.text: true
+      @Search.defaultSearchElement: true
+      @Search.fuzzinessThreshold: 0.8
+      @Search.ranking: #LOW
+      @EndUserText.quickInfo: 'Document Description'
+
+      ltext as DocumentDescription
+}
+where
+  spras = $session.system_language
+*********************************************************************************************************
+
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Validation for Bank GL'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+define view entity ZI_GlValidation as select from V_T012k_DDL
+{
+    bukrs,
+    hbkid,
+    hktid,
+    bankn,
+    bkont,
+    waers,
+    refzl,
+    dtaai,
+    bnkn2,
+    fdgrp,
+    abwae,
+    hkont,
+    wekon,
+    mindt,
+    hbid1,
+    hkid1,
+    hbid2,
+    hkid2,
+    wkkon,
+    wikon,
+    BROLL,
+    XTPRB
+}
+****************************************************************************************************************
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Value help for HouseBankID'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+@ObjectModel.representativeKey: 'HouseBankID'
+@ObjectModel.supportedCapabilities: [#SQL_DATA_SOURCE,
+                                     #CDS_MODELING_DATA_SOURCE,
+                                     #CDS_MODELING_ASSOCIATION_TARGET,
+                                     #VALUE_HELP_PROVIDER,
+                                     #SEARCHABLE_ENTITY]
+@ObjectModel.modelingPattern:#NONE
+@Search.searchable: true
+@Consumption.ranked: true
+
+define view entity ZI_HousebanckIDVh
+  as select from ZI_HouseBankAccount
+{
+      @ObjectModel.text.element: [ 'HouseBankDescription' ]
+      @Search.defaultSearchElement: true
+      @Search.fuzzinessThreshold: 0.8
+      @Search.ranking: #HIGH
+  key hbkid as HouseBankID,
+      
+
+//  key hktid,
+     @Search.defaultSearchElement: true
+      @Search.fuzzinessThreshold: 0.8
+      @Search.ranking: #LOW
+  key hkont,
+  @Semantics.text: true
+      @Search.defaultSearchElement: true
+      @Search.fuzzinessThreshold: 0.8
+      @Search.ranking: #LOW
+      @EndUserText.quickInfo: 'HouseBank Description'
+      text1 as HouseBankDescription
+     
+}
+where
+      spras = $session.system_language
+  and bukrs = '1000'
+***************************************************************************************************************
+
+@AbapCatalog.sqlViewName: 'ZIHOUSEBANKACC'
+@AbapCatalog.compiler.compareFilter: true
+@AbapCatalog.preserveKey: true
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'House Bank Account Details'
+@Metadata.ignorePropagatedAnnotations: true
+define view ZI_HouseBankAccount
+   as select from v_t012k_bam as A
+  left outer join v_t012t_bam as B on  A.bukrs = B.bukrs 
+                                   and A.hbkid = B.hbkid
+                                   and A.hktid = B.hktid
+{
+  B.spras,
+  B.bukrs,
+  B.hbkid,
+  B.hktid,
+  B.text1,
+  A.hkont
+}
+****************************************************************************************************
+
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Value help for Profit center'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+@ObjectModel.dataCategory: #VALUE_HELP
+@ObjectModel.representativeKey: 'ProfitCenter'
+@ObjectModel.supportedCapabilities: [#SQL_DATA_SOURCE,
+                                     #CDS_MODELING_DATA_SOURCE,
+                                     #CDS_MODELING_ASSOCIATION_TARGET,
+                                     #VALUE_HELP_PROVIDER,
+                                     #SEARCHABLE_ENTITY]
+@ObjectModel.modelingPattern:#NONE
+@Search.searchable: true
+@Consumption.ranked: true
+define view entity ZI_ProfitcenterVH
+  as select from I_ProfitCenterVH
+{
+
+      @ObjectModel.text.element: ['ProfitCenterName']
+      @Search: {
+           defaultSearchElement: true,
+           ranking: #HIGH,
+           fuzzinessThreshold: 0.8
+          }
+      @UI.textArrangement: #TEXT_LAST
+  key ProfitCenter,
+      @ObjectModel.text.element: ['ProfitCenterName']
+      @UI.textArrangement: #TEXT_LAST
+      @Search: {
+           defaultSearchElement: true,
+           ranking: #MEDIUM,
+           fuzzinessThreshold: 0.8
+          }
+
+      ProfitCenterName,
+      ProfitCtrResponsiblePersonName,
+      ProfitCenterStandardHierarchy,
+      Segment,
+      /* Associations */
+      _Segment,
+      _SegmentText
+}
+where
+  ControllingArea = 'RSBG'
+  
+*************************************************************************************************************************
+
+Enhancements
+
+ENHANCEMENT 1  .
+
+DATA:profitcenterdata TYPE bseg-prctr.
+
+"Update Profit Center for customer Record of Hundi Template
+IMPORT profitcenter TO profitcenterdata FROM MEMORY ID 'profitcenter'.
+IF profitcenterdata IS NOT INITIAL.
+  LOOP AT t_bseg ASSIGNING FIELD-SYMBOL(<documentitem>) WHERE koart = 'D'.
+    <documentitem>-prctr = profitcenterdata.
+  ENDLOOP.
+ENDIF.
+
+******************************************************************************************************************************
+*----------------------------------------------------------------------*
+* BTE:            OPEN_FI_PERFORM_00001120_P                           *
+*----------------------------------------------------------------------*
+* Title:          Profit Center update                                 *
+* RICEF#:         Profit Center update                                 *
+* Transaction:                                                         *
+*----------------------------------------------------------------------*
+* Copyright:      NDBS, Inc.                                           *
+* Client:         RSB Transmission                                     *
+*----------------------------------------------------------------------*
+* Developer:      NTT_ABAP5 ( Vaishnavi Vairagare )                    *
+* Creation Date:  10/12/2025                                           *
+* Description:    Profit Center update                                 *
+*----------------------------------------------------------------------*
+* Modification History                                                 *
+*----------------------------------------------------------------------*
+* Modified by:    <Developer (full name and user name)>                *
+* Date:           <Date>                                               *
+* Transport:      <Transport Request #>                                *
+* Description:                                                         *
+*<Description of the change (or the source for the initial creation if *
+* a template or SAP program was used as a starting point>              *
+*----------------------------------------------------------------------*
+
+SELECT SINGLE * FROM zfitprftcntr INTO @DATA(ls_prft_centertcode) WHERE wricefid  = 'ZPRFTCNTR'
+                                                                  AND fieldname   = 'TCODE'
+                                                                  AND value1      = @t_bkpf-tcode.
+IF sy-subrc EQ 0.
+  SELECT SINGLE * FROM zfitprftcntr INTO @DATA(ls_prft_centerdoctype) WHERE wricefid  = 'ZPRFTCNTR'
+                                                                      AND fieldname   = 'DOCTYPE'
+                                                                      AND value1      = @t_bkpf-blart.
+  IF sy-subrc EQ 0.
+    IF t_bseg[] IS NOT INITIAL.
+      DATA(lt_bseg) = t_bseg[].
+      DELETE lt_bseg WHERE prctr IS INITIAL.
+      IF lt_bseg IS NOT INITIAL.
+        READ TABLE lt_bseg INTO DATA(ls_bseg) INDEX 1.
+        LOOP AT t_bseg[] ASSIGNING FIELD-SYMBOL(<fs_bseg>) WHERE prctr IS INITIAL.
+          <fs_bseg>-kostl = ls_bseg-kostl.
+          <fs_bseg>-prctr = ls_bseg-prctr.
+        ENDLOOP.
+      ENDIF.
+    ENDIF.
+  ENDIF.
+ENDIF.
+
+"" End of changes 10.12.2025 by Vaishnavi Vairagare
+******************************************************************************************************************************
+ENDENHANCEMENT.
+
+************************************************************************************************************************************************
+
+Classes 
+
+CLASS zbp_i_postnclear_documents_m DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zi_postnclear_documents_m.
+ENDCLASS.
+
+CLASS zbp_i_postnclear_documents_m IMPLEMENTATION.
+ENDCLASS.
+****************************************************************************************************************************
+
+class ZPOSTANDCLEARDOCUMENT definition
+  public
+  final
+  create public .
+
+public section.
+
+  types:
+    BEGIN OF result,
+        errormsg TYPE c LENGTH 256,
+        flag     TYPE char1,
+        document TYPE belnr_d,
+        year     TYPE gjahr,
+      END OF result .
+  types:
+    BEGIN OF docclearingdata,
+        documentdetails        TYPE STANDARD TABLE OF blntab WITH EMPTY KEY,
+        clearingdetails        TYPE STANDARD TABLE OF ftclear WITH EMPTY KEY,
+        doc_header_itemdetails TYPE STANDARD TABLE OF ftpost WITH EMPTY KEY,
+        taxes                  TYPE STANDARD TABLE OF fttax WITH EMPTY KEY,
+      END OF docclearingdata .
+  types:
+    BEGIN OF docpartialclearingdata,
+        doc_header_itemdetails TYPE STANDARD TABLE OF bdcdata WITH EMPTY KEY,
+      END OF docpartialclearingdata .
+
+  class-data MSGID type SY-MSGID .
+  class-data MSGNO type SY-MSGNO .
+  class-data MSGTY type SY-MSGTY .
+  class-data MSGV1 type SY-MSGV1 .
+  class-data MSGV2 type SY-MSGV2 .
+  class-data MSGV3 type SY-MSGV3 .
+  class-data MSGV4 type SY-MSGV4 .
+  class-data SUBRC type SY-SUBRC .
+  class-data AUGLV type T041A-AUGLV value 'EINGZAHL' ##NO_TEXT.
+  class-data TCODE type SY-TCODE value 'FB05' ##NO_TEXT.
+  class-data SGFUNCT type RFIPI-SGFUNCT value 'C' ##NO_TEXT.
+
+  class-methods FULLPOSTANDCLEAR
+    importing
+      value(CLEARINGDETAILS) type DOCCLEARINGDATA optional
+    returning
+      value(RESULT) type RESULT .
+  class-methods PARTIALCLEAR
+    importing
+      value(CLEARINGDETAILS) type DOCPARTIALCLEARINGDATA optional
+    returning
+      value(RESULT) type RESULT .
+  class-methods HUNDIPARTIAL
+    importing
+      value(PROFITCENTER) type BSEG-PRCTR optional
+      value(CLEARINGDETAILS) type DOCPARTIALCLEARINGDATA optional
+    returning
+      value(RESULT) type RESULT .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS ZPOSTANDCLEARDOCUMENT IMPLEMENTATION.
+
+
+  METHOD fullpostandclear.
+
+    DATA : belnr TYPE    belnr_d,
+           bukrs TYPE    bukrs,
+           gjahr TYPE    gjahr,
+           error TYPE string.
+
+    CALL FUNCTION 'Z_POSTINGWITHCLEARING' DESTINATION 'NONE'
+      IMPORTING
+        msgid                  = msgid
+        msgno                  = msgno
+        msgty                  = msgty
+        msgv1                  = msgv1
+        msgv2                  = msgv2
+        msgv3                  = msgv3
+        msgv4                  = msgv4
+        subrc                  = subrc
+        belnr                  = belnr
+        bukrs                  = bukrs
+        gjahr                  = gjahr
+        error                  = error
+      TABLES
+        documentdetails        = clearingdetails-documentdetails[]
+        clearingdetails        = clearingdetails-clearingdetails[]
+        doc_header_itemdetails = clearingdetails-doc_header_itemdetails[]
+        taxes                  = clearingdetails-taxes[].
+
+    IF belnr IS NOT INITIAL ."AND  bukrs IS NOT INITIAL AND gjahr IS NOT INITIAL.
+      result = VALUE #( flag     = /isdfps/cl_const_abc_123=>gc_s
+                        document = belnr
+                        year     = gjahr
+                        errormsg = error ).
+    ELSE.
+      result = VALUE #( flag     = /isdfps/cl_const_abc_123=>gc_e
+                        errormsg = error ).
+    ENDIF.
+
+    CLEAR:clearingdetails-documentdetails[],clearingdetails-clearingdetails[],
+    clearingdetails-doc_header_itemdetails[],clearingdetails-taxes[].
+
+  ENDMETHOD.
+
+
+  METHOD partialclear.
+
+    DATA:"bdcdata TYPE TABLE OF bdcdata,
+      messtab  TYPE TABLE OF bdcmsgcoll,
+      error    TYPE string,
+      document TYPE belnr_d.
+
+    CALL FUNCTION 'Z_POSTINGPARTIAL_PAYMENT' DESTINATION 'NONE'
+      IMPORTING
+        error           = error
+        document        = document
+      TABLES
+        clearingdetails = clearingdetails-doc_header_itemdetails[]
+        messtab         = messtab.
+
+    result = VALUE #( errormsg = error
+                      document = document
+                      flag     = COND #( WHEN VALUE #( messtab[ msgnr = '312' ]-msgv1 OPTIONAL ) IS INITIAL
+                      THEN 'E'
+                      ELSE 'S' ) ).
+
+    CLEAR :clearingdetails-doc_header_itemdetails[],messtab[].
+  ENDMETHOD.
+
+
+  METHOD hundipartial.
+    DATA: messtab  TYPE TABLE OF bdcmsgcoll,
+          error    TYPE string,
+          document TYPE belnr_d.
+
+    CALL FUNCTION 'Z_POSTINGPARTIAL_HUNDI_PAYMENT' DESTINATION 'NONE'
+      EXPORTING
+        profitcenter    = profitcenter
+      IMPORTING
+        error           = error
+        document        = document
+      TABLES
+        clearingdetails = clearingdetails-doc_header_itemdetails[]
+        messtab         = messtab.
+
+*    CALL FUNCTION 'Z_POSTINGPARTIAL_HUNDI_PAYMENT' DESTINATION 'NONE'
+*      IMPORTING
+*        error           = error
+*        document        = document
+*      TABLES
+*        clearingdetails = clearingdetails-doc_header_itemdetails[]
+*        messtab         = messtab.
+
+    result = VALUE #( errormsg = error
+                      document = document
+                      flag     = COND #( WHEN VALUE #( messtab[ msgnr = '312' ]-msgv1 OPTIONAL ) IS INITIAL
+                      THEN 'E'
+                      ELSE 'S' ) ).
+
+    CLEAR :clearingdetails-doc_header_itemdetails[],messtab[].
+  ENDMETHOD.
+ENDCLASS.
+*****************************************************************************************************************************
+
+
+
 
 
 
